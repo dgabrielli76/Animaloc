@@ -16,7 +16,9 @@ import { LoginPage } from '../pages/login/login';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp, {
+      mode: 'wp'
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
