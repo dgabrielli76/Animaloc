@@ -33,7 +33,7 @@ export class HomePage {
     map.one(GoogleMapsEvent.MAP_READY).then(
      () => {
        // create LatLng object
-       let ionic: LatLng = new LatLng(43.0741904,-89.3809802);
+       let ionic: LatLng = new LatLng(49.855663,3.264124);
 
        // create CameraPosition
        let position: CameraPosition = {
@@ -50,6 +50,14 @@ export class HomePage {
         position: ionic,
         title: 'Ionic'
        };
+
+       map.addCircle({
+        'center': ionic,
+        'radius': 50,
+        'strokeColor' : '#27ae60',
+        'strokeWidth': 2,
+        'fillColor' : '#2ecc71'
+      });
 
        map.addMarker(markerOptions).then((marker: Marker) => {
          marker.showInfoWindow();
