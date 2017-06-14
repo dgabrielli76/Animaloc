@@ -1,7 +1,6 @@
 page-login {
   .content {
-    background: linear-gradient(#2ecc71, #27ae60);
-    color: white;
+    color: color($colors, primary);
     text-transform: uppercase;
 
     .scroll-content {
@@ -24,16 +23,16 @@ page-login {
 
         .text-input-wp {
           margin-right: 0;
-          border: 1px solid white;
+          border: 1px solid color($colors, primary);
           width: 100%;
-          color: white;
+          color: color($colors, primary);
           text-transform: uppercase;
           height: 40px;
         }
 
         .label-wp {
           margin-right: 0;
-          color: white;
+          color: #2ecc71;
           text-transform: uppercase;
         }
 
@@ -41,7 +40,7 @@ page-login {
           height: 50px;
           color: white;
           text-transform: uppercase;
-          border-color: white;
+          border-color: color($colors, primary);
           font-size: 2rem;
         }
       }
@@ -60,7 +59,7 @@ page-login {
     justify-content: center;
 
     .title {
-      color: white;
+      color: color($colors, primary);
       text-transform: uppercase;
       font-size: 50px;
       margin: 0;
@@ -68,8 +67,8 @@ page-login {
 
     .logo {
       font-size: 75px;
-      color: white;
-      margin-top: 10px;
+      color: color($colors, primary);
+      margin-top: 20px;
     }
   }
 }
