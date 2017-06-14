@@ -1,15 +1,54 @@
 page-login {
   .content {
     background: linear-gradient(#2ecc71, #27ae60);
+    color: white;
+    text-transform: uppercase;
 
     .scroll-content {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
 
       .menu-button {
         text-transform: uppercase;
+        margin-bottom: 0;
+        margin-top: 0;
+      }
+
+      .item-wp {
+        background: transparent;
+        padding: 0;
+
+        .item-inner {
+          padding: 0;
+        }
+
+        .text-input-wp {
+          margin-right: 0;
+          border: 1px solid white;
+          width: 100%;
+          color: white;
+          text-transform: uppercase;
+          height: 40px;
+        }
+
+        .label-wp {
+          margin-right: 0;
+          color: white;
+          text-transform: uppercase;
+        }
+
+        .item-button {
+          height: 50px;
+          color: white;
+          text-transform: uppercase;
+          border-color: white;
+          font-size: 2rem;
+        }
+      }
+
+      .list-wp {
+        margin: 0;
+        width: 100%;
       }
     }
   }
@@ -24,6 +63,13 @@ page-login {
       color: white;
       text-transform: uppercase;
       font-size: 50px;
+      margin: 0;
+    }
+
+    .logo {
+      font-size: 75px;
+      color: white;
+      margin-top: 10px;
     }
   }
 }
