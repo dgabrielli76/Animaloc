@@ -3,27 +3,9 @@
     <ion-title>
       Home Map
     </ion-title>
-    <ion-buttons end>
-      <button ion-button (click)="addMarker()"><ion-icon name="add"></ion-icon>Add Marker</button>
-    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-    <div #map id="map"></div>
-    <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
-        });
-      }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBR0wHrOr8qW5TPAzCbGQ9quYKTlvrr4O0&callback=initMap"
-    async defer></script>
+  <div #map id="map" style="height:100%;"></div>
 </ion-content>
-
-<!--<ion-content>
-  <div #map id="map"></div>
-</ion-content>-->

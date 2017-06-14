@@ -1,70 +1,64 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Geolocation } from '@ionic-native/geolocation';
-
-declare var google;
+import {
+ GoogleMaps,
+ GoogleMap,
+ GoogleMapsEvent,
+ LatLng,
+ CameraPosition,
+ MarkerOptions,
+ Marker
+} from '@ionic-native/google-maps';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-
-  @ViewChild('map') mapElement: ElementRef;
-  map: any;
-
-   constructor(public navCtrl: NavController, public geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, private googleMaps: GoogleMaps) {
 
   }
 
-  ionViewDidLoad() {
-    this.loadMap();
-  }
+  ngAfterViewInit() {
+   this.loadMap();
+  };
 
-  loadMap(){
+  loadMap() {
+    let element: HTMLElement = document.getElementById('map');
 
-    this.geolocation.getCurrentPosition().then((position) => {
+    let map: GoogleMap = this.googleMaps.create(element);
 
-      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    // listen to MAP_READY event
+    // You must wait for this event to fire before adding something to the map or modifying it in anyway
+    map.one(GoogleMapsEvent.MAP_READY).then(
+     () => {
+       console.log('Map is ready!');
+       // Now you can add elements to the map like the marker
+     }
+    );
 
-      let mapOptions = {
-        center: latLng,
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      }
+    // create LatLng object
+    let ionic: LatLng = new LatLng(43.0741904,-89.3809802);
 
-      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+    // create CameraPosition
+    let position: CameraPosition = {
+     target: ionic,
+     zoom: 18,
+     tilt: 30
+    };
 
-    }, (err) => {
-      console.log(err);
-    });
+    // move the map's camera to position
+    map.moveCamera(position);
 
-  }
+    // create new marker
+    let markerOptions: MarkerOptions = {
+     position: ionic,
+     title: 'Ionic'
+    };
 
-  addMarker(){
-
-    let marker = new google.maps.Marker({
-      map: this.map,
-      animation: google.maps.Animation.DROP,
-      position: this.map.getCenter()
-    });
-
-    let content = "<h4>Information!</h4>";
-
-    this.addInfoWindow(marker, content);
-
-  }
-
-  addInfoWindow(marker, content){
-
-    let infoWindow = new google.maps.InfoWindow({
-      content: content
-    });
-
-    google.maps.event.addListener(marker, 'click', () => {
-      infoWindow.open(this.map, marker);
-    });
-
-  }
-
+    const marker = map.addMarker(markerOptions)
+     .then((marker: Marker) => {
+        marker.showInfoWindow();
+      });
+    }
 }
