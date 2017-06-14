@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
 import {
  GoogleMaps,
  GoogleMap,
@@ -9,13 +10,16 @@ import {
  MarkerOptions,
  Marker
 } from '@ionic-native/google-maps';
+import { AlertController } from 'ionic-angular';
+
+declare var google;
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  constructor(public navCtrl: NavController, private googleMaps: GoogleMaps) {
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private geolocation: Geolocation, private googleMaps: GoogleMaps) {
 
   }
 
@@ -32,37 +36,45 @@ export class HomePage {
     // You must wait for this event to fire before adding something to the map or modifying it in anyway
     map.one(GoogleMapsEvent.MAP_READY).then(
      () => {
-       // create LatLng object
-       let ionic: LatLng = new LatLng(49.855663,3.264124);
 
-       // create CameraPosition
-       let position: CameraPosition = {
-        target: ionic,
-        zoom: 18,
-        tilt: 30
-       };
+       // move the map's camera to current position
+       this.geolocation.getCurrentPosition().then((position) => {
 
-       // move the map's camera to position
-       map.moveCamera(position);
+           let latLng: LatLng = new LatLng(position.coords.latitude, position.coords.longitude);
 
-       // create new marker
-       let markerOptions: MarkerOptions = {
-        position: ionic,
-        title: 'Ionic'
-       };
+           let pos: CameraPosition = {
+            target: latLng,
+            zoom: 18
+           };
 
-       map.addCircle({
-        'center': ionic,
-        'radius': 50,
-        'strokeColor' : '#27ae60',
-        'strokeWidth': 2,
-        'fillColor' : '#2ecc71'
-      });
+           map.moveCamera(pos);
 
-       map.addMarker(markerOptions).then((marker: Marker) => {
-         marker.showInfoWindow();
-       });
+           map.setMyLocationEnabled(true);
+
+           // create new marker
+           let markerOptions: MarkerOptions = {
+            position: latLng,
+            title: 'CREATIS'
+           };
+
+           map.addMarker(markerOptions).then((marker: Marker) => {
+             marker.showInfoWindow();
+           });
+
+           map.addCircle({
+            'center': pos,
+            'radius': 50,
+            'strokeColor' : '#27ae60',
+            'strokeWidth': 2,
+            'fillColor' : '#2ecc71'
+          });
+
+         });
+
      }
     );
+
   }
+
+
 }
