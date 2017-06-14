@@ -13,7 +13,7 @@ export class HomePage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
 
-  constructor(public navCtrl: NavController, public geolocation: Geolocation) {
+   constructor(public navCtrl: NavController, public geolocation: Geolocation) {
 
   }
 
@@ -59,11 +59,11 @@ export class HomePage {
 
     let infoWindow = new google.maps.InfoWindow({
       content: content
-      });
+    });
 
-      google.maps.event.addListener(marker, 'click', () => {
+    google.maps.event.addListener(marker, 'click', () => {
       infoWindow.open(this.map, marker);
-      });
+    });
 
   }
 
