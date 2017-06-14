@@ -1,3 +1,49 @@
 page-register {
+  .scroll-content {
+    display: flex;
+    flex-direction: column;
 
+    .menu-button {
+      text-transform: uppercase;
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+
+    .item-wp {
+      background: transparent;
+      padding: 0;
+
+      .item-inner {
+        padding: 0;
+      }
+
+      .text-input-wp {
+        margin-right: 0;
+        border: 1px solid color($colors, primary);
+        width: 100%;
+        color: color($colors, primary);
+        text-transform: uppercase;
+        height: 40px;
+      }
+
+      .label-wp {
+        margin-right: 0;
+        color: #2ecc71;
+        text-transform: uppercase;
+      }
+
+      .item-button {
+        height: 50px;
+        color: white;
+        text-transform: uppercase;
+        border-color: color($colors, primary);
+        font-size: 2rem;
+      }
+    }
+
+    .list-wp {
+      margin: 0;
+      width: 100%;
+    }
+  }
 }
