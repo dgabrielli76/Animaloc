@@ -57,7 +57,7 @@
             "cordova-plugin-whitelist": {},
             "ionic-plugin-keyboard": {},
             "cordova-plugin-geolocation": {
-                "GEOLOCATION_USAGE_DESCRIPTION": " "
+                "GEOLOCATION_USAGE_DESCRIPTION": "Animaloc requiere votre localisation pour détecter les animaux perdus aux alentours"
             }
         },
         "platforms": [
