@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { GoogleMaps, GoogleMap, GoogleMapsEvent, CameraPosition} from '@ionic-native/google-maps';
+import { ProfilePage } from '../profile/profile';
 
 @Component({
   selector: 'page-home',
@@ -35,4 +36,9 @@ export class HomePage {
      }
     );
   }
+
+  pushProfile() {
+    this.navCtrl.push(ProfilePage);
+  }
+
 }
