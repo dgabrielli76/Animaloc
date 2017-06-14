@@ -23,7 +23,7 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
-  openFilters() {
+  connection() {
     this.navCtrl.push(HomePage);
   }
 
