@@ -16,6 +16,7 @@ import { HomePage } from '../home/home';
 export class RegisterPage {
 
   constructor(public navCtrl: NavController) {
+    
   }
 
   createAccount() {
