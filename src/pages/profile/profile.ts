@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { AddPetPage } from '../add-pet/add-pet';
 
 /**
  * Generated class for the ProfilePage page.
@@ -14,20 +14,17 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
+  menu: string = "profile";
+  pets: Array<Object>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private barcodeScanner: BarcodeScanner) {
+  constructor(public navCtrl: NavController) {
+    this.pets = new Array<Object>();
+    this.pets.push({name: 'Zara', photo: 'https://funtastique.fr/wp-content/uploads/2015/11/des-chats-moches-6.jpg'});
+    this.pets.push({name: 'Killian', photo: 'https://scontent.xx.fbcdn.net/v/t1.0-1/1185135_404256463007751_173406248_n.jpg?oh=7f2153792c766e60dc1f8de59beafd87&oe=59E8CD95'});
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfilePage');
-  }
-
-  pushScanner() {
-    this.barcodeScanner.scan().then((barcodeData) => {
-      // Success! Barcode data is here
-    }, (err) => {
-      // An error occurred
-    });
+  showAddPetPage() {
+    this.navCtrl.push(AddPetPage);
   }
 
 }

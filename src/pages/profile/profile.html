@@ -7,9 +7,36 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>Profile</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only *ngIf="menu == 'pets'" (click)="showAddPetPage()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
+  <ion-segment [(ngModel)]="menu">
+    <ion-segment-button value="profile">
+      Mon Profile
+    </ion-segment-button>
+    <ion-segment-button value="pets">
+      Mes animaux
+    </ion-segment-button>
+  </ion-segment>
 </ion-header>
 
 <ion-content padding>
-  <button ion-button color="secondary" (click)="pushScanner()">Secondary</button>
+  <div [ngSwitch]="menu">
+    <div *ngSwitchCase="'profile'">
+
+    </div>
+    <div *ngSwitchCase="'pets'">
+      <ion-list>
+        <ion-item *ngFor="let pet of pets">
+          <ion-avatar item-start>
+            <img src="{{pet.photo}}">
+          </ion-avatar>
+          <h2>{{pet.name}}</h2>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
 </ion-content>

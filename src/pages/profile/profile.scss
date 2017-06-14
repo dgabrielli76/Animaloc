@@ -1,3 +1,16 @@
 page-profile {
+  .segment-button {
+    width: 50%;
+    color: white !important;
+  }
 
+  .segment-wp {
+    background: color($colors, primary);
+  }
+
+  .label-wp h2 {
+    font-size: 20px;
+    text-transform: uppercase;
+    padding-left: 20px;
+  }
 }

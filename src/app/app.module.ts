@@ -11,13 +11,18 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { ProfilePage } from '../pages/profile/profile';
+import { AddPetPage } from '../pages/add-pet/add-pet';
+import { PetProfilePage } from '../pages/pet-profile/pet-profile';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     LoginPage,
     RegisterPage,
-    ProfilePage
+    ProfilePage,
+    AddPetPage,
+    PetProfilePage
   ],
   imports: [
     BrowserModule,
@@ -31,7 +36,9 @@ import { ProfilePage } from '../pages/profile/profile';
     HomePage,
     LoginPage,
     RegisterPage,
-    ProfilePage
+    ProfilePage,
+    AddPetPage,
+    PetProfilePage
   ],
   providers: [
     StatusBar,
