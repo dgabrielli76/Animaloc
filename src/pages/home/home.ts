@@ -62,7 +62,7 @@ export class HomePage {
            });
 
            map.addCircle({
-            'center': pos,
+            'center': latLng,
             'radius': 50,
             'strokeColor' : '#27ae60',
             'strokeWidth': 2,
