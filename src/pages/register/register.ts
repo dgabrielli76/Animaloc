@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
-import { HomePage } from '../home/home';
+import { LoaderProvider } from '../../providers/loader/loader';
 
 /**
  * Generated class for the RegisterPage page.
@@ -22,18 +22,20 @@ export class RegisterPage {
   public errorEmail: boolean;
   public errorPassword: boolean;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public loaderProvider: LoaderProvider) {
 
   }
 
   createAccount() {
+    this.loaderProvider.showLoader('Veuillez patienter...');
+
     this.errorEmail = false;
     this.errorPassword = false;
 
     firebase.auth().createUserWithEmailAndPassword(this.email, this.password).catch((error) => {
+      this.loaderProvider.hideLoader();
+
       var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log(errorCode);
 
       if (errorCode == 'auth/weak-password') {
         this.errorPassword = true;

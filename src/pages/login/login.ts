@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
+import { LoaderProvider } from '../../providers/loader/loader';
 
 /**
  * Generated class for the LoginPage page.
@@ -21,27 +22,35 @@ export class LoginPage {
   public password: String;
   public errorEmail: boolean;
   public errorPassword: boolean;
+  public alreadyConnected: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public loaderProvider: LoaderProvider) {
     firebase.auth().onAuthStateChanged((user) => {
       // User is connected
       if(user) {
-        navCtrl.push(HomePage);
+        if(!this.alreadyConnected) {
+          this.alreadyConnected = true;
+          if(this.navCtrl.getActive().name != 'HomePage') navCtrl.setRoot(HomePage);
+        }
       }
       // User is disconnected
       else {
-        if(this.navCtrl.getActive().name != 'LoginPage') navCtrl.push(LoginPage);
+        this.alreadyConnected = false;
+        if(this.navCtrl.getActive().name != 'LoginPage') navCtrl.setRoot(LoginPage);
       }
     });
   }
 
   connection() {
+    this.loaderProvider.showLoader('Veuillez patienter...');
+
     this.errorEmail = false;
     this.errorPassword = false;
 
     firebase.auth().signInWithEmailAndPassword(this.email, this.password).catch((error) => {
+      this.loaderProvider.hideLoader();
+
       var errorCode = error.code;
-      var errorMessage = error.message;
 
       if (errorCode === 'auth/wrong-password') {
         this.errorPassword = true;

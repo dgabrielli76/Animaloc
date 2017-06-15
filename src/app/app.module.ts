@@ -14,6 +14,7 @@ import { RegisterPage } from '../pages/register/register';
 import { ProfilePage } from '../pages/profile/profile';
 import { AddPetPage } from '../pages/add-pet/add-pet';
 import { PetProfilePage } from '../pages/pet-profile/pet-profile';
+import { LoaderProvider } from '../providers/loader/loader';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { PetProfilePage } from '../pages/pet-profile/pet-profile';
     GoogleMaps,
     BarcodeScanner,
     Camera,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    LoaderProvider
   ]
 })
 export class AppModule {}
