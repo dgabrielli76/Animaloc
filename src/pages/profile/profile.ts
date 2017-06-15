@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { AddPetPage } from '../add-pet/add-pet';
+import { PetProfilePage } from '../pet-profile/pet-profile';
+import { LoaderProvider } from '../../providers/loader/loader';
 
 declare var firebase: any;
 /**
@@ -18,18 +20,31 @@ export class ProfilePage {
   menu: string = "profile";
   pets: Array<Object>;
 
-  constructor(public navCtrl: NavController) {
+  public name: string;
+  public email: string;
+  public phone: string;
+
+  constructor(public navCtrl: NavController, public loaderProvider: LoaderProvider) {
+    this.email = firebase.auth().currentUser.email;
+
+
+    firebase.auth().currentUser.providerData.forEach((profile) => {
+      this.name = profile.displayName;
+      this.phone = profile.phone;
+    });
   }
 
   ionViewWillEnter() {
     this.pets = new Array<Object>();
-
-    //this.pets = firebase.database().list('/' + firebase.auth().currentUser.uid);
+    this.loaderProvider.showLoader('Veuillez patienter...');
 
     firebase.database().ref('/' + firebase.auth().currentUser.uid).once('value').then((snapshot) => {
-      for(let key of Object.keys(snapshot.val())) {
-        this.pets.push({name: snapshot.val()[key].name, photo: snapshot.val()[key].photo});
+      if(snapshot.val()) {
+        for(let key of Object.keys(snapshot.val())) {
+          this.pets.push({id: key, name: snapshot.val()[key].name, photo: snapshot.val()[key].photo, IBeaconId: snapshot.val()[key].IBeaconId, lost: snapshot.val()[key].lost});
+        }
       }
+      this.loaderProvider.hideLoader();
     });
   }
 
@@ -37,7 +52,20 @@ export class ProfilePage {
     this.navCtrl.push(AddPetPage);
   }
 
+  showPetProfile(pet) {
+    this.navCtrl.push(PetProfilePage, {pet: pet});
+  }
+
   disconnect() {
     firebase.auth().signOut();
+  }
+
+  updateProfile() {
+    firebase.auth().currentUser.updateProfile({
+      displayName: this.name,
+      phone: this.phone
+    }).then(function() {
+      console.log('Saved');
+    });
   }
 }

@@ -13,4 +13,72 @@ page-profile {
     text-transform: uppercase;
     padding-left: 20px;
   }
+
+  .scroll-content {
+    .menu-button {
+      text-transform: uppercase;
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+
+    .item-wp {
+      background: transparent;
+      padding: 0;
+
+      .avatar {
+        text-align: center;
+      }
+
+      .photo {
+        display: initial;
+        width: 150px;
+        height: 150px;
+        border: 1px solid color($colors, primary);
+      }
+
+      .item-inner {
+        padding: 0;
+      }
+
+      .text-input-wp {
+        margin-right: 0;
+        border: 1px solid color($colors, primary);
+        width: 100%;
+        color: color($colors, primary);
+        height: 40px;
+      }
+
+      .input-wp.error .text-input-wp {
+        border-color: color($colors, danger) !important;
+        color: color($colors, danger) !important;
+      }
+
+      .label-wp {
+        margin-right: 0;
+        color: color($colors, primary);
+        text-transform: uppercase;
+      }
+
+      .label-wp.error {
+        color: color($colors, danger);
+      }
+
+      .item-button {
+        height: 50px;
+        color: white;
+        text-transform: uppercase;
+        font-size: 2rem;
+      }
+
+      .item-button.small {
+        height: 40px;
+        font-size: 1.5rem;
+      }
+    }
+
+    .list-wp {
+      margin: 0;
+      width: 100%;
+    }
+  }
 }

@@ -11,25 +11,23 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-item>
-      <ion-label stacked>Identifiant IBeacon</ion-label>
-      <ion-input type="text" [(ngModel)]="IBeaconId"></ion-input>
-    </ion-item>
-    <ion-item>
-      <button ion-button block color="primary" (click)='scan()'>Scanner</button>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked>Nom</ion-label>
-      <ion-input type="text" [(ngModel)]="blazeDuPet"></ion-input>
-    </ion-item>
-    <ion-item>
-      <img style="height:250; width:250;" [src]="imageSrc" *ngIf="imageSrc"/>
-      <button ion-button color="primary" (click)="accessGallery()">Open Gallery</button>
-      <!--<ion-icon name="images" (click)="accessGallery()"></ion-icon>-->
-    </ion-item>
-    <ion-item>
-      <button ion-button block color="primary" (click)='savePet()' class="menu-button">Terminer</button>
-    </ion-item>
-  </ion-list>
+  <ion-item>
+    <ion-avatar class="avatar">
+      <img src="{{imageSrc}}" class="photo" (click)="openGallery()">
+    </ion-avatar>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Identifiant du médaillon</ion-label>
+    <ion-input type="text" [(ngModel)]="IBeaconId"></ion-input>
+  </ion-item>
+  <ion-item>
+    <button ion-button block color="primary" (click)='scan()' class="menu-button small">Scanner le QR Code</button>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Nom de l'animal</ion-label>
+    <ion-input type="text" [(ngModel)]="name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <button ion-button block color="primary" (click)='savePet()' [disabled]="!IBeaconId || !name" class="menu-button">Sauvegarder</button>
+  </ion-item>
 </ion-content>

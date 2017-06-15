@@ -6,29 +6,33 @@
 -->
 <ion-header>
   <ion-navbar color="primary">
-    <!-- <ion-title value="{{pet.name}}"></ion-title> -->
+    <ion-title>{{pet.name}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <!-- <ion-list>
+  <ion-list>
     <ion-item>
-      <ion-label stacked value="{{pet.name}}"></ion-label>
+      <ion-avatar class="avatar">
+        <img src="{{pet.photo}}" class="photo">
+      </ion-avatar>
     </ion-item>
     <ion-item>
-      <ion-label stacked value="{{pet.IBeaconId}}"></ion-label>
+      <ion-label stacked>Nom</ion-label>
+      <ion-input type="text" [(ngModel)]="pet.name" readOnly></ion-input>
     </ion-item>
     <ion-item>
-      <img style="height:250; width:250;" [src]="{{pet.image}}" *ngIf="{{pet.image}}"/>
+      <ion-label stacked>Identifiant du médaillon</ion-label>
+      <ion-input type="text" [(ngModel)]="pet.IBeaconId" readOnly></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!pet.lost">
+      <button ion-button block color="primary" (click)='lostPetAction()' class="menu-button">J'ai perdu {{pet.name}}</button>
+    </ion-item>
+    <ion-item *ngIf="pet.lost">
+      <button ion-button block color="primary" (click)='lostPetAction()' class="menu-button">Il est de retour !</button>
     </ion-item>
     <ion-item>
-      <button ion-button (click)="modifiePetInfos()"/>Modifier les informations</button>
+      <button ion-button block color="danger" (click)='deletePet()' class="menu-button">Supprimer l'animal</button>
     </ion-item>
-    <ion-item>
-      <button ion-button (click)="lostPetAction()"/>Déclaré perdu</button>
-    </ion-item>
-    <ion-item>
-      <button ion-button block large color="danger" (click)="delete()">Supprimer</button>
-    </ion-item>
-  </ion-list> -->
+  </ion-list>
 </ion-content>

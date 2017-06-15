@@ -19,7 +19,7 @@ declare var firebase: any;
 })
 export class AddPetPage {
   private IBeaconId: string;
-  private blazeDuPet: string;
+  private name: string;
   private imageSrc: string;
 
   constructor(public navCtrl: NavController, private barcodeScanner: BarcodeScanner, private camera: Camera, private loaderProvider: LoaderProvider) {
@@ -33,7 +33,7 @@ export class AddPetPage {
     });
   }
 
-  accessGallery() {
+  openGallery() {
     let cameraOptions = {
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       destinationType: this.camera.DestinationType.FILE_URI,
@@ -49,11 +49,13 @@ export class AddPetPage {
 
   savePet() {
     this.loaderProvider.showLoader('Veuillez patienter...');
+    if(!this.imageSrc) this.imageSrc = " ";
 
     firebase.database().ref('/' + firebase.auth().currentUser.uid).push({
-        name: this.blazeDuPet,
+        name: this.name,
         photo: this.imageSrc,
-        IBeaconId: this.IBeaconId
+        IBeaconId: this.IBeaconId,
+        lost: false
     }).then(() => {
       this.navCtrl.pop();
     });

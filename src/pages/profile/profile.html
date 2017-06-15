@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Profile</ion-title>
+    <ion-title>Profil</ion-title>
     <ion-buttons end>
       <button ion-button icon-only *ngIf="menu == 'pets'" (click)="showAddPetPage()">
         <ion-icon name="add"></ion-icon>
@@ -15,7 +15,7 @@
   </ion-navbar>
   <ion-segment [(ngModel)]="menu">
     <ion-segment-button value="profile">
-      Mon Profile
+      Mon Profil
     </ion-segment-button>
     <ion-segment-button value="pets">
       Mes animaux
@@ -26,11 +26,30 @@
 <ion-content padding>
   <div [ngSwitch]="menu">
     <div *ngSwitchCase="'profile'">
-      <button ion-button block large color="danger" (click)="disconnect()">Se déconnecter</button>
+      <ion-list>
+        <ion-item>
+          <ion-label stacked>Nom</ion-label>
+          <ion-input type="text" [(ngModel)]="name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Adresse Email</ion-label>
+          <ion-input type="text" [(ngModel)]="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Numéro de téléphone</ion-label>
+          <ion-input type="number" [(ngModel)]="phone"></ion-input>
+        </ion-item>
+        <ion-item>
+          <button ion-button block color="primary" (click)='updateProfile()' class="menu-button">Sauvegarder</button>
+        </ion-item>
+        <ion-item>
+          <button ion-button block color="danger" (click)='disconnect()' class="menu-button">Se déconnecter</button>
+        </ion-item>
+      </ion-list>
     </div>
     <div *ngSwitchCase="'pets'">
       <ion-list>
-        <ion-item *ngFor="let pet of pets">
+        <ion-item *ngFor="let pet of pets" (click)="showPetProfile(pet)">
           <ion-avatar item-start>
             <img src="{{pet.photo}}"/>
           </ion-avatar>
