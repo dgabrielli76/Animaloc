@@ -25,8 +25,9 @@ export class AddPetPage {
     console.log('ionViewDidLoad AddPetPage');
   }
 
-  IBeaconId: string;
-  blazeDuPet: string;
+  private IBeaconId: string;
+  private blazeDuPet: string;
+  private imageSrc: string;
 
   scan() {
     this.barcodeScanner.scan().then((barcodeData) => {
@@ -35,8 +36,6 @@ export class AddPetPage {
       // An error occurred
     });
   }
-
-  private imageSrc: string;
 
   accessGallery() {
     let cameraOptions = {
@@ -55,11 +54,10 @@ export class AddPetPage {
   }
 
   finish() {
-    firebase.database().ref('/').set({
+    firebase.database().ref('/' + firebase.auth().currentUser.uid).set({
         name: this.blazeDuPet,
-        photo: this.imageSrc,
-        IBeaconId: this.IBeaconId,
-        ownerId: firebase.auth().currentUser.uid
+        //photo: this.imageSrc,
+        IBeaconId: this.IBeaconId
     });
   }
 
