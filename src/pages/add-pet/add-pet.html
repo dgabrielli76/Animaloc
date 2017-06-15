@@ -27,7 +27,7 @@
       <ion-input type="text" [(ngModel)]="blazeDuPet"></ion-input>
     </ion-item>
     <ion-item>
-      <img [src]="base64Image" *ngIf="base64Image" />
+      <img style="height:250; width:250;" [src]="imageSrc" *ngIf="imageSrc"/>
       <button ion-button color="primary" (click)="accessGallery()">Open Gallery</button>
       <!--<ion-icon name="images" (click)="accessGallery()"></ion-icon>-->
     </ion-item>
