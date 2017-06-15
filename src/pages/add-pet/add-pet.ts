@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
 
@@ -21,6 +21,10 @@ export class AddPetPage {
   constructor(public navCtrl: NavController, private barcodeScanner: BarcodeScanner, private camera: Camera) {
   }
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad AddPetPage');
+  }
+
   private IBeaconId: string;
   private blazeDuPet: string;
   private imageSrc: string;
@@ -38,8 +42,6 @@ export class AddPetPage {
     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     destinationType: this.camera.DestinationType.FILE_URI,
     quality: 100,
-    targetWidth: 1000,
-    targetHeight: 1000,
     encodingType: this.camera.EncodingType.JPEG,
     correctOrientation: true
   }
@@ -50,9 +52,9 @@ export class AddPetPage {
   }
 
   finish() {
-    firebase.database().ref('/' + firebase.auth().currentUser.uid).set({
+    firebase.database().ref('/' + firebase.auth().currentUser.uid).push({
         name: this.blazeDuPet,
-        //photo: this.imageSrc,
+        photo: this.imageSrc,
         IBeaconId: this.IBeaconId
     });
   }
