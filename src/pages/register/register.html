@@ -13,19 +13,19 @@
 <ion-content padding>
   <ion-list>
     <ion-item>
-      <ion-label stacked>Email</ion-label>
-      <ion-input type="email"></ion-input>
+      <ion-label stacked [ngClass]="{'error': errorEmail}">Email</ion-label>
+      <ion-input type="email" [(ngModel)]="email" [ngClass]="{'error': errorEmail}"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label stacked>Mot de passe</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-label stacked [ngClass]="{'error': errorPassword}">Mot de passe</ion-label>
+      <ion-input type="password" [(ngModel)]="password" [ngClass]="{'error': errorPassword}"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label stacked>Confirmation mot de passe</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-label stacked [ngClass]="{'error': errorPassword}">Confirmation mot de passe</ion-label>
+      <ion-input type="password" [(ngModel)]="passwordConfirmation" [ngClass]="{'error': errorPassword}"></ion-input>
     </ion-item>
     <ion-item>
-      <button ion-button block color="primary" (click)='createAccount()' class="menu-button">Créer un compte</button>
+      <button ion-button block color="primary" (click)='createAccount()' class="menu-button" [disabled]="!email || !password || !passwordConfirmation || (password != passwordConfirmation)">Créer un compte</button>
     </ion-item>
   </ion-list>
 </ion-content>
