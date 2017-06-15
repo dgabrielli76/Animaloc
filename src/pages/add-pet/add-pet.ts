@@ -38,8 +38,6 @@ export class AddPetPage {
     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     destinationType: this.camera.DestinationType.FILE_URI,
     quality: 100,
-    targetWidth: 1000,
-    targetHeight: 1000,
     encodingType: this.camera.EncodingType.JPEG,
     correctOrientation: true
   }
@@ -50,9 +48,9 @@ export class AddPetPage {
   }
 
   finish() {
-    firebase.database().ref('/' + firebase.auth().currentUser.uid).set({
+    firebase.database().ref('/' + firebase.auth().currentUser.uid).push({
         name: this.blazeDuPet,
-        //photo: this.imageSrc,
+        photo: this.imageSrc,
         IBeaconId: this.IBeaconId
     });
   }

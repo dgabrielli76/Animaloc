@@ -20,8 +20,15 @@ export class ProfilePage {
 
   constructor(public navCtrl: NavController) {
     this.pets = new Array<Object>();
-    this.pets.push({name: 'Zara', photo: 'https://funtastique.fr/wp-content/uploads/2015/11/des-chats-moches-6.jpg'});
-    this.pets.push({name: 'Killian', photo: 'https://www.google.fr/search?q=the+rock&rlz=1C5CHFA_enFR738FR738&tbm=isch&imgil=EXAxPonaznZm4M%253A%253Bc64ypeer5Z5CPM%253Bhttp%25253A%25252F%25252Fwww.muscleandfitness.com%25252Fnutrition%25252Fmeal-plans%25252Fsmell-what-rock-cooking&source=iu&pf=m&fir=EXAxPonaznZm4M%253A%252Cc64ypeer5Z5CPM%252C_&usg=__Or4afuxCr2EY-7FnCfRYUq5LsmI%3D&biw=1440&bih=706&ved=0ahUKEwiJ8OLfyb_UAhVJfRoKHXpMANUQyjcImQE&ei=kVhCWcnjOMn6afqYgagN#imgrc=EXAxPonaznZm4M:'});
+
+    //this.pets = firebase.database().list('/' + firebase.auth().currentUser.uid);
+
+    firebase.database().ref('/' + firebase.auth().currentUser.uid).once('value').then((snapshot) => {
+      for(let key of Object.keys(snapshot.val())) {
+        this.pets.push({name: snapshot.val()[key].name, photo: snapshot.val()[key].photo});
+      }
+    });
+
   }
 
   showAddPetPage() {
