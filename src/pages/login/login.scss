@@ -44,10 +44,19 @@ page-login {
           height: 40px;
         }
 
+        .input-wp.error .text-input-wp {
+          border-color: color($colors, danger);
+          color: color($colors, danger);
+        }
+
         .label-wp {
           margin-right: 0;
           color: #2ecc71;
           text-transform: uppercase;
+        }
+
+        .label-wp.error {
+          color: color($colors, danger);
         }
 
         .item-button {

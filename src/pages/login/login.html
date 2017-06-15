@@ -9,21 +9,21 @@
   <h1 class="title">Anima'Loc</h1>
   <ion-list>
     <ion-item>
-      <ion-label stacked>Email</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-label stacked [ngClass]="{'error': errorEmail}">Email</ion-label>
+      <ion-input type="text" [(ngModel)]="email" [ngClass]="{'error': errorEmail}"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label stacked>Mot de passe</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-label stacked [ngClass]="{'error': errorPassword}">Mot de passe</ion-label>
+      <ion-input type="password" [ngClass]="{'error': errorPassword}" [(ngModel)]="password"></ion-input>
     </ion-item>
     <ion-item>
-      <button ion-button block color="primary" (click)='connection()' class="menu-button">Connexion</button>
+      <button ion-button block color="primary" (click)='connection()' class="menu-button" [disabled]="!email || !password">Connexion</button>
     </ion-item>
     <ion-item style="text-align: center">
       OU
     </ion-item>
     <ion-item>
-      <button ion-button block color="primary" (click)='register()' class="menu-button" style="border-color: transparent">Créer un compte</button>
+      <button ion-button block color="primary" (click)='goToRegistrationPage()' class="menu-button" style="border-color: transparent">Créer un compte</button>
     </ion-item>
   </ion-list>
 </ion-content>

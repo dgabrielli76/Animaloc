@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AddPetPage } from '../add-pet/add-pet';
 
+declare var firebase: any;
 /**
  * Generated class for the ProfilePage page.
  *
@@ -27,4 +28,7 @@ export class ProfilePage {
     this.navCtrl.push(AddPetPage);
   }
 
+  disconnect() {
+    firebase.auth().signOut();
+  }
 }
