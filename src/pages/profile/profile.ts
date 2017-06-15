@@ -19,6 +19,9 @@ export class ProfilePage {
   pets: Array<Object>;
 
   constructor(public navCtrl: NavController) {
+  }
+
+  ionViewWillEnter() {
     this.pets = new Array<Object>();
 
     //this.pets = firebase.database().list('/' + firebase.auth().currentUser.uid);
@@ -28,7 +31,6 @@ export class ProfilePage {
         this.pets.push({name: snapshot.val()[key].name, photo: snapshot.val()[key].photo});
       }
     });
-
   }
 
   showAddPetPage() {

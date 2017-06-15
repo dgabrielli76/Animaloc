@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -48,6 +49,7 @@ import { LoaderProvider } from '../providers/loader/loader';
     GoogleMaps,
     BarcodeScanner,
     Camera,
+    LocalNotifications,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoaderProvider
   ]
