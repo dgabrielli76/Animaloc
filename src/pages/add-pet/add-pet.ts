@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
 
@@ -19,6 +19,10 @@ declare var firebase: any;
 export class AddPetPage {
 
   constructor(public navCtrl: NavController, private barcodeScanner: BarcodeScanner, private camera: Camera) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad AddPetPage');
   }
 
   private IBeaconId: string;

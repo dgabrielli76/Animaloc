@@ -27,7 +27,7 @@
         "@ionic-native/ibeacon": "^3.12.1",
         "@ionic-native/photo-library": "^3.12.1",
         "@ionic-native/splash-screen": "3.10.2",
-        "@ionic-native/status-bar": "3.10.2",
+        "@ionic-native/status-bar": "^3.10.2",
         "@ionic/storage": "2.0.1",
         "com.unarin.cordova.beacon": "~3.4.0",
         "cordova-android": "^6.2.3",
