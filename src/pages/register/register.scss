@@ -25,10 +25,19 @@ page-register {
         height: 40px;
       }
 
+      .input-wp.error .text-input-wp {
+        border-color: color($colors, danger) !important;
+        color: color($colors, danger) !important;
+      }
+
       .label-wp {
         margin-right: 0;
-        color: #2ecc71;
+        color: color($colors, primary);
         text-transform: uppercase;
+      }
+
+      .label-wp.error {
+        color: color($colors, danger);
       }
 
       .item-button {
