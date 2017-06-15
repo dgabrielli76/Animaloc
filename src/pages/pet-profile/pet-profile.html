@@ -5,14 +5,30 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>PetProfile</ion-title>
+  <ion-navbar color="primary">
+    <!-- <ion-title value="{{pet.name}}"></ion-title> -->
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-
+  <!-- <ion-list>
+    <ion-item>
+      <ion-label stacked value="{{pet.name}}"></ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked value="{{pet.IBeaconId}}"></ion-label>
+    </ion-item>
+    <ion-item>
+      <img style="height:250; width:250;" [src]="{{pet.image}}" *ngIf="{{pet.image}}"/>
+    </ion-item>
+    <ion-item>
+      <button ion-button (click)="modifiePetInfos()"/>Modifier les informations</button>
+    </ion-item>
+    <ion-item>
+      <button ion-button (click)="lostPetAction()"/>Déclaré perdu</button>
+    </ion-item>
+    <ion-item>
+      <button ion-button block large color="danger" (click)="delete()">Supprimer</button>
+    </ion-item>
+  </ion-list> -->
 </ion-content>

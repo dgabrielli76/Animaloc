@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
-import { LocalNotifications } from '@ionic-native/local-notifications';
 import { LoaderProvider } from '../../providers/loader/loader';
 
 declare var firebase: any;
@@ -22,18 +21,8 @@ export class AddPetPage {
   private IBeaconId: string;
   private blazeDuPet: string;
   private imageSrc: string;
-  
-  constructor(public navCtrl: NavController, private barcodeScanner: BarcodeScanner, private camera: Camera, private localNotifications: LocalNotifications, private loaderProvider: LoaderProvider) {
-  }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AddPetPage');
-    this.localNotifications.schedule({
-      id: 1,
-      text: 'Votre animal a été retrouvé.\nCliquez pour savoir où',
-      sound: 'file://beep.caf',
-      data: { secret: 1 }
-    });
+  constructor(public navCtrl: NavController, private barcodeScanner: BarcodeScanner, private camera: Camera, private loaderProvider: LoaderProvider) {
   }
 
   scan() {
