@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Camera } from '@ionic-native/camera';
+
+declare var firebase: any;
 
 /**
  * Generated class for the AddPetPage page.
@@ -15,19 +18,49 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 })
 export class AddPetPage {
 
-  constructor(public navCtrl: NavController, private barcodeScanner: BarcodeScanner) {
+  constructor(public navCtrl: NavController, private barcodeScanner: BarcodeScanner, private camera: Camera) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddPetPage');
   }
 
+  IBeaconId: string;
+  blazeDuPet: string;
 
-  pushScanner() {
+  scan() {
     this.barcodeScanner.scan().then((barcodeData) => {
-      // Success! Barcode data is here
+      this.IBeaconId = barcodeData.text
     }, (err) => {
       // An error occurred
     });
   }
+
+  private imageSrc: string;
+
+  accessGallery() {
+    let cameraOptions = {
+    sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+    destinationType: this.camera.DestinationType.FILE_URI,
+    quality: 100,
+    targetWidth: 1000,
+    targetHeight: 1000,
+    encodingType: this.camera.EncodingType.JPEG,
+    correctOrientation: true
+  }
+
+  this.camera.getPicture(cameraOptions)
+    .then(file_uri => this.imageSrc = file_uri,
+    err => console.log(err));
+  }
+
+  finish() {
+    firebase.database().ref('/').set({
+        name: this.blazeDuPet,
+        photo: this.imageSrc,
+        IBeaconId: this.IBeaconId,
+        ownerId: firebase.auth().currentUser.uid
+    });
+  }
+
 }
