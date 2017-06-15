@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import { LoaderProvider } from '../../providers/loader/loader';
 
 declare var firebase: any;
 
@@ -18,8 +19,11 @@ declare var firebase: any;
   templateUrl: 'add-pet.html',
 })
 export class AddPetPage {
-
-  constructor(public navCtrl: NavController, private barcodeScanner: BarcodeScanner, private camera: Camera, private localNotifications: LocalNotifications) {
+  private IBeaconId: string;
+  private blazeDuPet: string;
+  private imageSrc: string;
+  
+  constructor(public navCtrl: NavController, private barcodeScanner: BarcodeScanner, private camera: Camera, private localNotifications: LocalNotifications, private loaderProvider: LoaderProvider) {
   }
 
   ionViewDidLoad() {
@@ -30,12 +34,7 @@ export class AddPetPage {
       sound: 'file://beep.caf',
       data: { secret: 1 }
     });
-
   }
-
-  private IBeaconId: string;
-  private blazeDuPet: string;
-  private imageSrc: string;
 
   scan() {
     this.barcodeScanner.scan().then((barcodeData) => {
@@ -47,23 +46,27 @@ export class AddPetPage {
 
   accessGallery() {
     let cameraOptions = {
-    sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-    destinationType: this.camera.DestinationType.FILE_URI,
-    quality: 100,
-    encodingType: this.camera.EncodingType.JPEG,
-    correctOrientation: true
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      quality: 100,
+      encodingType: this.camera.EncodingType.JPEG,
+      correctOrientation: true
+    }
+
+    this.camera.getPicture(cameraOptions)
+      .then(file_uri => this.imageSrc = file_uri,
+      err => console.log(err));
   }
 
-  this.camera.getPicture(cameraOptions)
-    .then(file_uri => this.imageSrc = file_uri,
-    err => console.log(err));
-  }
+  savePet() {
+    this.loaderProvider.showLoader('Veuillez patienter...');
 
-  finish() {
     firebase.database().ref('/' + firebase.auth().currentUser.uid).push({
         name: this.blazeDuPet,
         photo: this.imageSrc,
         IBeaconId: this.IBeaconId
+    }).then(() => {
+      this.navCtrl.pop();
     });
   }
 
