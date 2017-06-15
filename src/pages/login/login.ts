@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
+import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
 import { LoaderProvider } from '../../providers/loader/loader';
@@ -24,7 +25,7 @@ export class LoginPage {
   public errorPassword: boolean;
   public alreadyConnected: boolean;
 
-  constructor(public navCtrl: NavController, public loaderProvider: LoaderProvider) {
+  constructor(public navCtrl: NavController, public loaderProvider: LoaderProvider, public splashScreen: SplashScreen) {
     firebase.auth().onAuthStateChanged((user) => {
       // User is connected
       if(user) {
@@ -39,6 +40,10 @@ export class LoginPage {
         if(this.navCtrl.getActive().name != 'LoginPage') navCtrl.setRoot(LoginPage);
       }
     });
+  }
+
+  ionViewDidLoad() {
+    this.splashScreen.hide();
   }
 
   connection() {
