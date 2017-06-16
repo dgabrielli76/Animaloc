@@ -13,12 +13,12 @@
 <ion-content padding>
   <ion-item>
     <ion-avatar class="avatar">
-      <img src="{{imageSrc}}" class="photo" (click)="openGallery()">
+      <img src="{{image}}" class="photo" (click)="openGallery()">
     </ion-avatar>
   </ion-item>
   <ion-item>
     <ion-label stacked>Identifiant du médaillon</ion-label>
-    <ion-input type="text" [(ngModel)]="IBeaconId"></ion-input>
+    <ion-input type="text" [(ngModel)]="id"></ion-input>
   </ion-item>
   <ion-item>
     <button ion-button block color="primary" (click)='scan()' class="menu-button small">Scanner le QR Code</button>
@@ -28,6 +28,6 @@
     <ion-input type="text" [(ngModel)]="name"></ion-input>
   </ion-item>
   <ion-item>
-    <button ion-button block color="primary" (click)='savePet()' [disabled]="!IBeaconId || !name" class="menu-button">Sauvegarder</button>
+    <button ion-button block color="primary" (click)='savePet()' [disabled]="!id || !name" class="menu-button">Sauvegarder</button>
   </ion-item>
 </ion-content>

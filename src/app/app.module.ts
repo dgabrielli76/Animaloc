@@ -7,6 +7,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import { BLE } from '@ionic-native/ble';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -50,6 +51,7 @@ import { LoaderProvider } from '../providers/loader/loader';
     BarcodeScanner,
     Camera,
     LocalNotifications,
+    BLE,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoaderProvider
   ]

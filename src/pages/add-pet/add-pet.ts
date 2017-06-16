@@ -18,16 +18,16 @@ declare var firebase: any;
   templateUrl: 'add-pet.html',
 })
 export class AddPetPage {
-  private IBeaconId: string;
+  private id: string;
   private name: string;
-  private imageSrc: string;
+  private image: string;
 
   constructor(public navCtrl: NavController, private barcodeScanner: BarcodeScanner, private camera: Camera, private loaderProvider: LoaderProvider) {
   }
 
   scan() {
     this.barcodeScanner.scan().then((barcodeData) => {
-      this.IBeaconId = barcodeData.text
+      this.id = barcodeData.text
     }, (err) => {
       // An error occurred
     });
@@ -42,20 +42,22 @@ export class AddPetPage {
       correctOrientation: true
     }
 
-    this.camera.getPicture(cameraOptions)
-      .then(file_uri => this.imageSrc = file_uri,
-      err => console.log(err));
+    this.camera.getPicture(cameraOptions).then((uri) => {
+      this.image = uri;
+    });
   }
 
   savePet() {
     this.loaderProvider.showLoader('Veuillez patienter...');
-    if(!this.imageSrc) this.imageSrc = " ";
+    if(!this.image) this.image = " ";
 
-    firebase.database().ref('/' + firebase.auth().currentUser.uid).push({
-        name: this.name,
-        photo: this.imageSrc,
-        IBeaconId: this.IBeaconId,
-        lost: false
+    firebase.database().ref(this.id).set({
+      owner: firebase.auth().currentUser.uid,
+      name: this.name,
+      image: this.image,
+      id: this.id,
+      lost: false,
+      positions: []
     }).then(() => {
       this.navCtrl.pop();
     });

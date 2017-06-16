@@ -38,10 +38,12 @@ export class ProfilePage {
     this.pets = new Array<Object>();
     this.loaderProvider.showLoader('Veuillez patienter...');
 
-    firebase.database().ref('/' + firebase.auth().currentUser.uid).once('value').then((snapshot) => {
+    firebase.database().ref('/').once('value').then((snapshot) => {
       if(snapshot.val()) {
         for(let key of Object.keys(snapshot.val())) {
-          this.pets.push({id: key, name: snapshot.val()[key].name, photo: snapshot.val()[key].photo, IBeaconId: snapshot.val()[key].IBeaconId, lost: snapshot.val()[key].lost});
+          if(snapshot.val()[key].owner == firebase.auth().currentUser.uid) {
+            this.pets.push({owner: firebase.auth().currentUser.uid, name: snapshot.val()[key].name, image: snapshot.val()[key].image, id: key, lost: snapshot.val()[key].lost, positions: snapshot.val()[key].positions});
+          }
         }
       }
       this.loaderProvider.hideLoader();

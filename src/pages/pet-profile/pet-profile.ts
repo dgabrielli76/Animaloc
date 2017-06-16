@@ -19,7 +19,7 @@ declare var firebase: any;
   templateUrl: 'pet-profile.html',
 })
 export class PetProfilePage {
-  public pet: {name: string, photo: string, IBeaconId: string, id: string, lost: boolean};
+  public pet: {name: string, image: string, id: string, lost: boolean, owner: string, positions: Array<Object>};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private localNotifications: LocalNotifications, public alertCtrl: AlertController, public loaderProvider: LoaderProvider) {
     this.pet = this.navParams.get('pet');
@@ -29,7 +29,7 @@ export class PetProfilePage {
     this.loaderProvider.showLoader('Veuillez patienter...');
     if(!this.pet.lost) {
       this.pet.lost = true;
-      firebase.database().ref('/' + firebase.auth().currentUser.uid + '/' + this.pet.id).update(this.pet).then(() => {
+      firebase.database().ref(this.pet.id).set(this.pet).then(() => {
         this.loaderProvider.hideLoader();
       });
       this.localNotifications.schedule({
@@ -41,9 +41,9 @@ export class PetProfilePage {
     }
     else {
       this.pet.lost = false;
-      firebase.database().ref('/' + firebase.auth().currentUser.uid + '/' + this.pet.id).update(this.pet).then(() => {
+      firebase.database().ref(this.pet.id).set(this.pet).then(() => {
         this.loaderProvider.hideLoader();
-      });;
+      });
     }
   }
 
@@ -61,7 +61,7 @@ export class PetProfilePage {
         {
           text: 'Oui',
           handler: () => {
-            firebase.database().ref('/' + firebase.auth().currentUser.uid + '/' + this.pet.id).remove().then(() => {
+            firebase.database().ref(this.pet.id).remove().then(() => {
               this.navCtrl.pop();
             });
           }

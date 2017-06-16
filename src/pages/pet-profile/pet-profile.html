@@ -14,7 +14,7 @@
   <ion-list>
     <ion-item>
       <ion-avatar class="avatar">
-        <img src="{{pet.photo}}" class="photo">
+        <img src="{{pet.image}}" class="photo">
       </ion-avatar>
     </ion-item>
     <ion-item>
@@ -23,7 +23,7 @@
     </ion-item>
     <ion-item>
       <ion-label stacked>Identifiant du médaillon</ion-label>
-      <ion-input type="text" [(ngModel)]="pet.IBeaconId" readOnly></ion-input>
+      <ion-input type="text" [(ngModel)]="pet.id" readOnly></ion-input>
     </ion-item>
     <ion-item *ngIf="!pet.lost">
       <button ion-button block color="primary" (click)='lostPetAction()' class="menu-button">J'ai perdu {{pet.name}}</button>
