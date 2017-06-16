@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AddPetPage } from '../add-pet/add-pet';
 import { PetProfilePage } from '../pet-profile/pet-profile';
 import { LoaderProvider } from '../../providers/loader/loader';
@@ -19,14 +19,16 @@ declare var firebase: any;
 export class ProfilePage {
   menu: string = "profile";
   pets: Array<Object>;
+  public user: string;
 
   public name: string;
   public email: string;
   public phone: string;
 
   constructor(public navCtrl: NavController, public loaderProvider: LoaderProvider) {
-    this.email = firebase.auth().currentUser.email;
+    this.user = firebase.auth().currentUser.uid;
 
+    this.email = firebase.auth().currentUser.email;
 
     firebase.auth().currentUser.providerData.forEach((profile) => {
       this.name = profile.displayName;
@@ -41,9 +43,7 @@ export class ProfilePage {
     firebase.database().ref('/').once('value').then((snapshot) => {
       if(snapshot.val()) {
         for(let key of Object.keys(snapshot.val())) {
-          if(snapshot.val()[key].owner == firebase.auth().currentUser.uid) {
-            this.pets.push({owner: firebase.auth().currentUser.uid, name: snapshot.val()[key].name, image: snapshot.val()[key].image, id: key, lost: snapshot.val()[key].lost, positions: snapshot.val()[key].positions});
-          }
+          this.pets.push({owner: firebase.auth().currentUser.uid, name: snapshot.val()[key].name, image: snapshot.val()[key].image, id: key, lost: snapshot.val()[key].lost, positions: snapshot.val()[key].positions});
         }
       }
       this.loaderProvider.hideLoader();
